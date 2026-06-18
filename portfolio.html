@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Étudiant Communication & SEO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FAFAF8;
+    --bg-alt: #F2F1FC;
+    --text: #0F0F0D;
+    --text-muted: #6B6B66;
+    --accent: #5B4FE8;
+    --accent-light: #EDEAFC;
+    --mint: #D4F5E6;
+    --mint-text: #0D6E42;
+    --border: #E2E2DC;
+    --white: #FFFFFF;
+    --nav-w: 220px;
+    --radius: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    padding: 8px 1rem;
+    letter-spacing: 0.01em;
+  }
+  .status-bar .dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A8F5C8;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* ── NAV LATÉRALE ── */
+  nav {
+    position: fixed;
+    top: 37px;
+    left: 0;
+    width: var(--nav-w);
+    height: calc(100vh - 37px);
+    padding: 2.5rem 1.5rem;
+    border-right: 1px solid var(--border);
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    z-index: 50;
+  }
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  nav a {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav a:hover, nav a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  nav a::before {
+    content: attr(data-icon);
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  .nav-bottom {
+    margin-top: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  /* ── MAIN ── */
+  main {
+    margin-left: var(--nav-w);
+    padding-top: 37px;
+  }
+  section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+  section:nth-child(even) {
+    background: var(--bg-alt);
+    max-width: 100%;
+  }
+  section:nth-child(even) .inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  h1 .typed {
+    color: var(--accent);
+    border-right: 3px solid var(--accent);
+    padding-right: 4px;
+    animation: blink 0.75s step-end infinite;
+  }
+  @keyframes blink { 50% { border-color: transparent; } }
+  .hero-desc {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: var(--mint);
+    color: var(--mint-text);
+  }
+  .badge.purple {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 12px 26px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,79,232,0.28); }
+  .btn-ghost {
+    display: inline-block;
+    padding: 12px 22px;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── SECTION TITLES ── */
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── FORMATIONS ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0 0 2rem 0;
+    position: relative;
+  }
+  .tl-dot {
+    flex-shrink: 0;
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    z-index: 1;
+  }
+  .tl-content { padding-top: 3px; }
+  .tl-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .tl-school {
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  /* ── COMPÉTENCES ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.25rem 1rem;
+  }
+  .skill-category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .skill-row {
+    margin-bottom: 0.85rem;
+  }
+  .skill-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .skill-meta span:last-child { color: var(--text-muted); font-size: 12px; }
+  .bar-track {
+    background: var(--border);
+    border-radius: 4px;
+    height: 5px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--accent);
+    width: 0;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+  .bar-fill.mint { background: #1DB974; }
+
+  /* ── PROJETS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 2rem;
+}
+.project-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(15,15,13,0.09);
+}
+.project-thumb {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+  .thumb-web { background: #EDEAFC; }
+  .thumb-seo  { background: #D4F5E6; }
+  .thumb-wp   { background: #FFF3CD; }
+  .thumb-strat { background: #FCE4EC; }
+  .project-body { padding: 1.25rem; }
+  .project-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .project-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.55;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  a {
+      text-decoration: none;
+
+  }
+
+  .contact-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .contact-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .contact-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .altenance-block {
+    grid-column: 1 / -1;
+    background: var(--accent);
+    border-radius: var(--radius);
+    padding: 2rem;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .altenance-block h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .altenance-block p { font-size: 13.5px; opacity: 0.82; }
+  .btn-white {
+    display: inline-block;
+    background: #fff;
+    color: var(--accent);
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    :root { --nav-w: 0px; }
+    nav { display: none; }
+    main { margin-left: 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .bar-fill { width: var(--final-w) !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <span class="dot"></span>
+  Disponible pour alternance — Rentrée 2026 · Bachelor Communication ECS Paris
+</div>
+
+<!-- NAV -->
+<nav id="sidebar">
+  <div class="nav-logo">Portfolio</div>
+  <a href="#hero" data-icon="👋" class="active">Accueil</a>
+  <a href="#formations" data-icon="🎓">Formations</a>
+  <a href="#competences" data-icon="⚡">Compétences</a>
+  <a href="#projets" data-icon="🗂">Projets</a>
+  <a href="#contact" data-icon="✉">Contact</a>
+  <div class="nav-bottom">
+    Communication & SEO<br>Paris, France
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="eyebrow">Étudiant en recherche alternance 4 jours / 1 jour</div>
+    <h1>Marketing digital<br>&amp; <span class="typed" id="typed-word">Stratégie SEO</span></h1>
+    <p class="hero-desc">
+      Étudiant en 3e année de Bachelor Communication à l'ECS Paris, je combine une solide base technique — DUT MMI — avec une expertise opérationnelle en SEO, WooCommerce et création de contenu web.
+    </p>
+    <div class="badge-row">
+      <span class="badge">✦ Bachelor ECS</span>
+      <span class="badge">DUT MMI</span>
+      <span class="badge purple">SEO · WooCommerce</span>
+      <span class="badge purple">Rank Math · Yoast</span>
+      <span class="badge">Marketing digital</span>
+    </div>
+    <div class="cta-row">
+      <a href="#projets" class="btn-primary">Voir mes projets</a>
+      <a href="#contact" class="btn-ghost">Me contacter</a>
+    </div>
+  </section>
+
+  <!-- FORMATIONS -->
+  <section id="formations">
+    <div class="inner">
+      <p class="eyebrow">Parcours</p>
+      <h2>Formations</h2>
+      <p class="section-sub">Un double profil : technique & communication.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">🎓</div>
+          <div class="tl-content">
+            <div class="tl-date">2026 — 2027</div>
+            <div class="tl-title">Bachelor Communication</div>
+            <div class="tl-school">ECS Paris — 3e année en cours</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">📈</div>
+          <div class="tl-content">
+            <div class="tl-date">2026</div>
+            <div class="tl-title">Stage Marketing Digital</div>
+            <div class="tl-school">Golden Atlas</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">💻</div>
+          <div class="tl-content">
+            <div class="tl-date">2022 — 2025</div>
+            <div class="tl-title">DUT Métiers du Multimédia et de l'Internet</div>
+            <div class="tl-school">Institut Universitaire de Technologie</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">📐</div>
+          <div class="tl-content">
+            <div class="tl-date">2022</div>
+            <div class="tl-title">Baccalauréat</div>
+            <div class="tl-school">STI2D</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <p class="eyebrow">Savoir-faire</p>
+    <h2>Compétences</h2>
+    <p class="section-sub">Techniques & outils maîtrisés en contexte réel.</p>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-category">SEO &amp; Marketing</div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Stratégie SEO</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Rank Math</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Yoast SEO</span><span>Expert</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Marketing digital</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="82"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Web &amp; CMS</div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>WordPress</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>WooCommerce</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="87"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>HTML / CSS</span><span>Expert</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Architecture web</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="80"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Communication</div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Rédaction web</span><span>Expert</span></div>
+          <div class="bar-track"><div class="bar-fill mint" data-w="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Stratégie contenu</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill mint" data-w="82"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Réseaux sociaux</span><span>Avancé</span></div>
+          <div class="bar-track"><div class="bar-fill mint" data-w="78"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>Adobe Suite</span><span>Intermédiaire</span></div>
+          <div class="bar-track"><div class="bar-fill mint" data-w="65"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="inner">
+      <p class="eyebrow">Réalisations</p>
+      <h2>Projets web</h2>
+      <p class="section-sub">Projets académiques et personnels en contexte réel.</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-thumb thumb-seo">📈</div>
+          <div class="project-body">
+            <div class="project-title">Stratégie SEO multi-niveaux</div>
+            <div class="project-desc">Élaboration d'une architecture SEO trois niveaux (catégories > sous-catégories > produits), production de 34 fiches produits HTML structurées et d'un protocole Rank Math.</div>
+            <div class="tag-row">
+              <span class="tag">Rank Math</span>
+              <span class="tag">Schema Markup</span>
+              <span class="tag">Longue traîne</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-wp">🌿</div>
+          <div class="project-body">
+            <div class="project-title">Marketplace produits naturels</div>
+            <div class="project-desc">Développement d'un site vitrine et marchand pour des produits bien-être naturels : architecture de l'information, maillage interne, optimisation technique.</div>
+            <div class="tag-row">
+              <span class="tag">WordPress</span>
+              <span class="tag">YoastSEO</span>
+              <span class="tag">Maillage interne</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-strat">📣</div>
+          <div class="project-body">
+            <div class="project-title">Plan de communication</div>
+            <div class="project-desc">Projet académique IUT : élaboration d'une stratégie de communication 360°, positionnement de marque, ligne éditoriale et plan de diffusion multicanal.</div>
+            <div class="tag-row">
+              <span class="tag">Stratégie</span>
+              <span class="tag">Contenu</span>
+              <span class="tag">Réseaux sociaux</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="project-card">
+          <div class="project-thumb thumb-web">💻</div>
+          <div class="project-body">
+            <div class="project-title">Réalisation de site web</div>
+            <div class="project-desc">Projet académique IUT : création de diverse site web pour différentes thématiques, créations de composants, interfaces et rédactions du contenu..</div>
+            <div class="tag-row">
+              <span class="tag">Contenu web</span>
+              <span class="tag">développement</span>
+              <span class="tag">Rédaction</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="eyebrow">Disponible dès maintenant</p>
+    <h2>Me contacter</h2>
+    <p class="section-sub">Ouvert à toute opportunité d'alternance en marketing digital ou communication.</p>
+    <div class="contact-grid">
+      <div class="altenance-block">
+        <div>
+          <h3>🔍 Recherche d'alternance active</h3>
+          <p>Bachelor Communication · ECS Paris · Rentrée 2026<br>Marketing digital · SEO · Création de contenu web</p>
+        </div>
+        <a href="mailto:aminbenazzouz.pro@gmail.com" class="btn-white">Envoyer un email</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">aminbenazzouz.pro@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🔗</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/amin-benazzouz/"><div class="contact-value">linkedin.com/in/amin-benazzouz</div></a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Localisation</div>
+          <div class="contact-value">Paris, Île-de-France</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📄</div>
+        <div>
+          <div class="contact-label">CV</div>
+          <a href="CV Amin Benazzouz.pdf"><div class="contact-value">Disponible sur demande</div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // ── Typewriter hero ──
+  const words = ['Stratégie SEO', 'WooCommerce', 'Contenu Web', 'Communication'];
+  let wi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-word');
+  function type() {
+    const word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1600); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+    }
+    setTimeout(type, deleting ? 55 : 85);
+  }
+  setTimeout(type, 1000);
+
+  // ── Progress bars on scroll ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.w + '%';
+        });
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.skill-card').forEach(c => observer.observe(c));
+
+  // ── Nav active link ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
